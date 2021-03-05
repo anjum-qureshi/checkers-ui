@@ -18,8 +18,9 @@ bin-release/
 # information for Eclipse / Flash Builder.
 
 # Deployment directories
-node_modules
-dist
+/node_modules
+/dist
+/coverage
 # Optional npm cache directory
 .npm
 # Mac
