@@ -22,7 +22,9 @@ module.exports = {
     filename: "bundle.js",
     clean: true,
   },
-  plugins: [htmlPlugin, cleanPlugin],
+  plugins: [htmlPlugin, cleanPlugin, "transform-runtime", {
+    "regenerator": true
+  }],
   module: {
     rules: [{
         test: /\.(js|jsx)$/,
@@ -42,17 +44,17 @@ module.exports = {
     ]
   },
   resolve: {
-      extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx']
   },
   devtool: 'inline-source-map',
   devServer: {
-      contentBase: outputDirectory,
-      hot: true,
-      port: 3000,
-      open: true,
-      historyApiFallback: true,
-      proxy: {
-        '/api/*': 'http://localhost:8080'
-      }
-    },
+    contentBase: outputDirectory,
+    hot: true,
+    port: 3000,
+    open: true,
+    historyApiFallback: true,
+    proxy: {
+      '/api/*': 'http://localhost:8080'
+    }
+  },
 };
