@@ -1,9 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import App from './components/App/App';
 
-const Index = () => {
-	return <div className="roor">Magic happens</div>;
-};
-
-ReactDOM.render(<Index />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
