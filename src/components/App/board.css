@@ -1,0 +1,70 @@
+.cell {
+	height: 120px;
+	width: 125px;
+	border-color: 4px solid black;
+	display: flex;
+	align-items: center;
+}
+
+.board {
+	display: inline-flex;
+	flex-direction: column;
+	height: auto;
+	width: auto;
+	margin: 30px 5px 30px 50px;
+	border: 4px solid #0c1011;
+}
+
+.row {
+	height: auto;
+	width: auto;
+	display: flex;
+	flex-direction: row;
+}
+
+.coin {
+	border-radius: 50%;
+	box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2),
+		0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	height: 85px;
+	width: 85px;
+	margin: 10px 10px 10px 15px;
+}
+
+.coin.black {
+	background-color: #010d00;
+	background-image: radial-gradient(
+		#000000,
+		#c9aa88 15%,
+		#000000 40%,
+		#c9aa88 5%,
+		#000000,
+		#000000
+	);
+}
+
+.coin.white {
+	background-color: #f5f5f5;
+	border-radius: 50%;
+	background-image: radial-gradient(
+		#ffffff 10%,
+		#c9aa88 20%,
+		#ffffff 40%,
+		#f2eeed 20%,
+		#ded9d7 40%,
+		#c9aa88 45%,
+		#f2eeed,
+		#ded9d7,
+		#c9aa88 70%
+	);
+}
+
+.cell.white {
+	background-color: #a89a97;
+	background-image: radial-gradient(#ddc6b6 10%, #ab9d94, #a99e90);
+}
+
+.cell.black {
+	background-color: #3c4f5e;
+	background-image: radial-gradient(#677575, #3e4e5d, #273947);
+}

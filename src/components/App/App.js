@@ -1,16 +1,19 @@
-import React from 'react';
-import './App.css';
-import SearchBox from '../SearchBox/SearchBox';
+import React from "react";
 
-import {fetchVideos} from '../../api/youtube';
+import "./App.css";
 
-const App = () => (
-  <div className="App">
-    Heloooo
-      <header className="App-header">
-      <SearchBox search = {fetchVideos}/>
-      </header>
-    </div>
-  );
+import Game from "./Game";
+
+const App = () => {
+	const players = [
+		{ color: "white", name: "Lucifer" },
+		{ color: "black", name: "Wolf" },
+	];
+	return (
+		<div className="App">
+			<Game players={players} />
+		</div>
+	);
+};
 
 export default App;

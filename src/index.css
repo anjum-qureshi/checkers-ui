@@ -5,6 +5,7 @@ body {
 		"Helvetica Neue", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	height: inherit;
 }
 
 code {
@@ -15,4 +16,5 @@ code {
 .root {
 	color: white;
 	background-color: black;
+	height: inherit;
 }
