@@ -1,53 +1,50 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 
 import "./App.css";
 
 import Board from "./Board";
-import { BOARD } from "./state";
+import { PLAYERS } from "./defaultState";
+import { getCoinInfo } from "./utils";
 
-const move = (coins, from, to, color) => {
-	return coins.reduce((updatedBoard, row) => {
-		const newRow = row.reduce((updatedRow, cell) => {
-			let newCell = { ...cell };
-			if (cell.number == from) {
-				newCell.coin = undefined;
-			}
-			if (cell.number == to) {
-				newCell.coin = color;
-			}
-			return [...updatedRow, newCell];
-		}, []);
-
-		return [...updatedBoard, newRow];
+const movePlayerCoin = (player, from, to) => {
+	const coins = player.coins.reduce((coins, coin) => {
+		const newCoin = { ...coin };
+		if (coin.row == from.row && coin.col == from.col) {
+			newCoin.r = to.row;
+			newCoin.c = to.col;
+		}
+		return [...coins, newCoin];
 	}, []);
+	return { ...player, coins };
 };
 
-const Game = ({ players }) => {
-	const [board, setBoard] = useState(BOARD);
+const Game = () => {
+	const [players, setState] = useState(PLAYERS);
 	const [from, setFrom] = useState(undefined);
 	const [to, setTo] = useState(undefined);
-    const [currPlayerIndex, setCurrPlayerIndex] = useState(0);
-      
+	const [currPlayerIndex, setCurrPlayerIndex] = useState(0);
 
 	const moveCoin = (evt) => {
 		evt.preventDefault();
-		const updatedBoard = move(
-			board,
-			from,
-			to,
-			players[currPlayerIndex].color,
-		);
-		setBoard(updatedBoard);
+		const updatedPlayers = {
+			[currPlayerIndex]: movePlayerCoin(
+				players[currPlayerIndex],
+				from,
+				to,
+			),
+			[1 - currPlayerIndex]: players[1 - currPlayerIndex],
+		};
+		setState(updatedPlayers);
 		setFrom(undefined);
 		setTo(undefined);
 	};
 
 	return (
 		<Board
-			layout={board}
+			getCoinAt={getCoinInfo(players)}
 			move={moveCoin}
 			selectCoin={setFrom}
-			selectPlace={setTo}
+			selectCell={setTo}
 		/>
 	);
 };

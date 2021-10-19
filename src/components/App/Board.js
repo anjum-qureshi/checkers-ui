@@ -1,70 +1,89 @@
 import React from "react";
 
 import "./board.css";
+import { LAYOUT } from "./defaultState";
 
-const Coin = ({ color, ...props }) => {
-	return <div className={`coin ${color}`} {...props} />;
-};
+const isDraggable = ()
 
-const renderCell = ({
-	color,
-	coin,
-	number,
-	index,
-	move,
-	selectCoin,
-	selectPlace,
-}) => {
-	if (coin) {
-		return (
-			<div className={`cell ${color}`} key={"cell_" + index}>
-				<Coin
-					color={coin}
-					number={number}
-					draggable
-					onDragEnter={(ev) => {
-						ev.preventDefault();
-						selectCoin(number);
-					}}
-					onDragEnd={move}
-				/>
-			</div>
-		);
-	}
+const Coin = ({ color, row, col, select, move, draggable }) => {
 	return (
 		<div
-			className={`cell ${color}`}
-			key={"cell " + index}
-			onDragOver={(ev) => {
+			className={`coin ${color}`}
+			onDragEnter={(ev) => {
 				ev.preventDefault();
-				selectPlace(number);
+				select({ row, col });
 			}}
+			draggable={draggable}
+			onDragEnd={move}
 		/>
 	);
 };
 
-const renderRow = (row, rowIndex, props) => {
+const renderCell = ({
+	color,
+	move,
+	select,
+	selectCoin,
+	getCoinAt,
+	rowIndex,
+	colIndex,
+}) => {
+	const row = rowIndex + 1;
+	const col = colIndex + 1;
+	let coinElement = <></>;
+	const selectCell = (ev) => {
+		ev.preventDefault();
+		select({ row, col });
+	};
+	const coin = getCoinAt({ row, col });
+	if (coin != undefined) {
+		coinElement = <Coin select={selectCoin} move={move} {...coin} />;
+	}
+
 	return (
-		<div className="row" key={"row_" + rowIndex}>
-			{row.map((coin, index) =>
+		<div
+			className={`cell ${color}`}
+			key={"cell " + row}
+			onDragOver={selectCell}
+			row={row + 1}
+			col={col}
+		>
+			{coinElement}
+		</div>
+	);
+};
+
+const renderRow = (
+	row,
+	rowIndex,
+	{ move, select: selectCell, selectCoin, getCoinAt },
+) => {
+	return (
+		<div className={"row"} key={"row_" + rowIndex}>
+			{row.map((cellColor, colIndex) =>
 				renderCell({
-					...coin,
-					index,
-					...props,
+					color: cellColor,
+					rowIndex,
+					colIndex,
+					move,
+					getCoinAt,
+					select: selectCell,
+					selectCoin,
 				}),
 			)}
 		</div>
 	);
 };
 
-const Board = ({ layout, move, selectCoin, selectPlace }) => {
+const Board = ({ move, selectCoin, selectCell, getCoinAt }) => {
 	return (
 		<div className="board">
-			{layout.map((row, index) =>
+			{LAYOUT.map((row, index) =>
 				renderRow(row, index, {
 					move,
-					selectPlace,
+					selectCell,
 					selectCoin,
+					getCoinAt,
 				}),
 			)}
 		</div>
