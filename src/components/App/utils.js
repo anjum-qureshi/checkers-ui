@@ -5,7 +5,7 @@ const validateMove = (players) => (position) => {
 	return players.every((player) => !hasCoin(player, position));
 };
 
-const possibleMoves = (players, { row, col, isKing }, start, finish) => {
+const possibleMoves = (players) => ({ row, col, isKing }, start, finish) => {
 	const colMap = {
 		1: [2],
 		3: [2, 4],
@@ -21,9 +21,9 @@ const possibleMoves = (players, { row, col, isKing }, start, finish) => {
 	if (isKing) {
 		directions.push(dirValueMap[start]);
 	}
-	const moves = directions.map((dir) =>
-		colMap[col].map((c) => ({ col: c, row: [row + dir] })),
-	);
+	const moves = directions
+		.map((dir) => colMap[col].map((c) => ({ col: c, row: row + dir })))
+		.flat();
 	return moves.filter(validateMove(players));
 };
 

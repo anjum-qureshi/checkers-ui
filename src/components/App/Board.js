@@ -3,15 +3,13 @@ import React from "react";
 import "./board.css";
 import { LAYOUT } from "./defaultState";
 
-const isDraggable = ()
-
-const Coin = ({ color, row, col, select, move, draggable }) => {
+const Coin = ({ color, row, col, select, move, draggable, isKing }) => {
 	return (
 		<div
 			className={`coin ${color}`}
 			onDragEnter={(ev) => {
 				ev.preventDefault();
-				select({ row, col });
+				select({ row, col, isKing });
 			}}
 			draggable={draggable}
 			onDragEnd={move}
@@ -43,7 +41,7 @@ const renderCell = ({
 	return (
 		<div
 			className={`cell ${color}`}
-			key={"cell " + row}
+			key={"cell " + row + col}
 			onDragOver={selectCell}
 			row={row + 1}
 			col={col}
@@ -56,7 +54,7 @@ const renderCell = ({
 const renderRow = (
 	row,
 	rowIndex,
-	{ move, select: selectCell, selectCoin, getCoinAt },
+	{ move, selectCell, selectCoin, getCoinAt },
 ) => {
 	return (
 		<div className={"row"} key={"row_" + rowIndex}>
