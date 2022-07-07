@@ -4,6 +4,10 @@ import "./board.css";
 import { LAYOUT } from "./defaultState";
 
 const Coin = ({ color, row, col, select, move, draggable, isKing }) => {
+	let star = <></>;
+	// if (isKing) {
+	// 	star = <div className="king" />;
+	// }
 	return (
 		<div
 			className={`coin ${color}`}
@@ -13,7 +17,9 @@ const Coin = ({ color, row, col, select, move, draggable, isKing }) => {
 			}}
 			draggable={draggable}
 			onDragEnd={move}
-		/>
+		>
+			{star}
+		</div>
 	);
 };
 

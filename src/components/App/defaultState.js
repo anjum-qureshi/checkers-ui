@@ -33,7 +33,7 @@ const PLAYERS = [
 		color: "white",
 		coins: player1Coins.map((ele) => ({
 			...ele,
-			isKing: false,
+			isKing: true,
 		})),
 	},
 	{
@@ -42,7 +42,7 @@ const PLAYERS = [
 		color: "black",
 		coins: player2Coins.map((ele) => ({
 			...ele,
-			isKing: false,
+			isKing: true,
 		})),
 	},
 ];
